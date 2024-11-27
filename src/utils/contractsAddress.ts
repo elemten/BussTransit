@@ -1,2 +1,2 @@
-export const transitContractAddress = '0x0735129B455466B6Bff602b7d7A195AE75eE2c40';
-export const adminAddress = '0xe70B9d16945014fdb4388381A89Bbf16039eB29f'
+export const transitContractAddress = '0xC0972618a89E66f2e3a4cB8772163E00E357A476';
+export const adminAddress = '0xfA286aEA68206567bC27e98C4D2eE36b36d549B6'
