@@ -354,7 +354,7 @@ const stopSimulation = () => {
               
               :''  
             }
-            <div className="flex flex-row">
+{/*             <div className="flex flex-row">
               <h1>Set Arival Times</h1>
             <Input
               label='Add Passanger'
@@ -366,7 +366,7 @@ const stopSimulation = () => {
               }}
               />
               <Button isDisabled={!ticketId} onClick={async ()=>await addPassengerToBus()} isLoading={addPassangerTransactionPendig}>Add Passanger</Button>
-            </div>
+            </div> */}
             <div>
               <h1>Passanger count :{String(passangerCount)} </h1>
             </div>
@@ -412,11 +412,11 @@ const stopSimulation = () => {
       <h1>Passanger Portal </h1>
       <div className="flex flex-col gap-10">
              
-                <div className="flex flex-col gap-2">
+{/*                 <div className="flex flex-col gap-2">
                 <h1>Current Bus Arrival Time : {contractNextTime&&new Date(Number(contractCurrentTime)*1000).toUTCString()}</h1>
                 <h1>Next Bus Arrival Time : {contractNextTime&&new Date(Number(contractNextTime)*1000).toUTCString()}</h1>
                 <Button onClick={async ()=>await getTimes()}>Bus Timings</Button>
-                </div>
+                </div> */}
                 <div className="flex flex-col gap-5">
                   <h1>Ticket Price : {ticketCurrentPrice&&String(toEther(ticketCurrentPrice))}</h1>
                   <Button isLoading={buyTicketTransactionPending} onClick={async ()=>await buyTicket() }>Buy Ticket</Button>
