@@ -13,6 +13,7 @@ import {parseAbsoluteToLocal, Time, ZonedDateTime} from "@internationalized/date
 import { elysiumChain } from "./Header";
 import { thirdWebClient } from "@/components/ConnectWallet";
 import { getWalletBalance } from "thirdweb/wallets";
+import BusTimeSimulation from "@/components/BusTimeSimulation";
 
 
 
@@ -257,11 +258,57 @@ const setTimes = async ()=>{
     getPassangerCount()
     getTicketsIds()
   }, [activeAccount?.address])
+  const [isSimulating, setIsSimulating] = useState(false);
+const [simulationResult, setSimulationResult] = useState<string | null>(null);
+const [departureTime,setDepartureTime]=useState<any>()
+const [waitingTime,setWaitingTime]=useState<any>()
+
+const generateRandomTimestamp = () => {
+  // Generate a random timestamp within the next 24 hours
+  return Math.floor(Date.now() / 1000) + Math.floor(Math.random() * 3600);
+};
+
+const startSimulation = async () => {
+  setIsSimulating(true);
+  setSimulationResult(null);
+  
+  // This interval will run every 2 seconds while the simulation is active
+  const intervalId = setInterval(async () => {
+    
+
+    try {
+      const currentTime = BigInt(generateRandomTimestamp());
+     
+      const nextTime = BigInt(generateRandomTimestamp()); // 1 hour later
+     
+      const result = await readContract({
+        contract: getTransitContract(transitContractAddress),
+        method: 'compareBusArrivalTimes',
+        params: [currentTime, nextTime]
+      });
+      setDepartureTime(currentTime);
+      setWaitingTime(nextTime);
+      console.log(result ? 'Departure Authorized' : 'Departure Not Authorized');
+      setSimulationResult(result ? 'Departure Authorized' : 'Departure Not Authorized');
+    } catch (error) {
+      console.error('Error during simulation:', error);
+      setSimulationResult('Simulation Error');
+      clearInterval(intervalId); // Stop the simulation on error
+    }
+  }, 2000);
+};
+
+const stopSimulation = () => {
+  setIsSimulating(false);
+};
+
+
   
   return (
    <div className=" flex flex-col items-center justify-center w-full align-middle mt-10">
     {
       isAdmin ? 
+      <>
       <div className="flex flex-col gap-5 w-full">
             <h1>Operator Portal</h1>
             <div className="flex flex-col gap-5">
@@ -327,6 +374,39 @@ const setTimes = async ()=>{
             <Button color="danger" isLoading={newBusPending} onClick={async ()=>await resetBus()}>New Bus</Button>
             <Button color="primary" isLoading={withdrawFundsTransactionPending} onClick={async ()=>await withdrawFunds()}>Withdraw Funds</Button>
       </div>
+      <div>
+      <div className="flex flex-col items-center gap-4 mt-5">
+    <Button 
+      color="primary" 
+      onClick={startSimulation} 
+      isDisabled={isSimulating}
+    >
+      Start Simulation
+    </Button>
+   
+    <Button
+    color="danger"
+    isDisabled={!isSimulating}
+    onClick={()=>stopSimulation()}
+    >
+      Stop Simulation
+    </Button>
+    <div className="flex flex-row gap-5">
+                  <h1>Departure time = {new Date(Number(departureTime)*1000).getMinutes()}:{new Date(Number(departureTime)*1000).getSeconds()}</h1>
+                  <h1>Waiting time = {new Date(Number(waitingTime)*1000).getMinutes()}:{new Date(Number(waitingTime)*1000).getSeconds()}</h1>
+    </div>
+    {simulationResult && (
+      <div className={`p-2 rounded ${
+        simulationResult.includes('Not Authorized') 
+          ? 'bg-red-200 text-red-800' 
+          : 'bg-green-200 text-green-800'
+      }`}>
+        {simulationResult}
+      </div>
+    )}
+  </div>
+      </div>
+      </>
       :
       <div className="flex flex-col gap-5">
       <h1>Passanger Portal </h1>
@@ -345,7 +425,7 @@ const setTimes = async ()=>{
                   <Button onClick={async ()=>await getYourTicketId()}>Get Your Ticket ID</Button>
                   <h1>Your Ticket ID : {String(yourTicketId)} </h1>
                 </div>
-
+                
               
       </div>
 
