@@ -1,11 +1,11 @@
 import { thirdWebClient } from "@/components/ConnectWallet"
 import { getContract } from "thirdweb"
-import { elysiumChain} from "@/app/Header"
+import { sepolia } from "thirdweb/chains";
 
 export const getTransitContract = (address:string)=>{
     const contract = getContract({
         client: thirdWebClient,
-        chain:elysiumChain,
+        chain:sepolia,
         address:address,
         abi:[
             {

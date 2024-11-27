@@ -10,10 +10,10 @@ import { prepareContractCall, PreparedTransaction, readContract, toEther, toUnit
 import { useActiveAccount, useActiveWallet, useReadContract, useSendAndConfirmTransaction, useWalletBalance } from "thirdweb/react";
 import {useDateFormatter} from "@react-aria/i18n";
 import {parseAbsoluteToLocal, Time, ZonedDateTime} from "@internationalized/date";
-import { elysiumChain } from "./Header";
 import { thirdWebClient } from "@/components/ConnectWallet";
 import { getWalletBalance } from "thirdweb/wallets";
 import BusTimeSimulation from "@/components/BusTimeSimulation";
+import { sepolia } from "thirdweb/chains";
 
 
 
@@ -32,7 +32,7 @@ const [contractNextTime,setContractNextTime]=useState<any>()
 const [yourTicketId,setYourTicketId]=useState<any>()
 const {data:balanceData}=useWalletBalance({
   client:thirdWebClient,
-  chain:elysiumChain,
+  chain:sepolia,
   address:activeAccount?.address
 })
 

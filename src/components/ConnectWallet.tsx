@@ -1,7 +1,7 @@
 'use client';
-import { elysiumChain } from '@/app/Header';
 import { Button, Modal, ModalBody, ModalContent, useDisclosure } from '@nextui-org/react';
 import { createThirdwebClient } from 'thirdweb';
+import { sepolia } from 'thirdweb/chains';
 
 import { ConnectEmbed, useActiveAccount, useActiveWallet, useWalletBalance } from 'thirdweb/react';
 import { createWallet } from 'thirdweb/wallets';
@@ -18,7 +18,7 @@ function ConnectWallet({widthFull}:{widthFull?:boolean}) {
     const activeAccount = useActiveAccount();
     const {data}=useWalletBalance({
         client:thirdWebClient,
-        chain:elysiumChain,
+        chain:sepolia,
         address:activeAccount?.address
     })
     const walletAddress = activeAccount?.address;
@@ -63,7 +63,7 @@ function ConnectWallet({widthFull}:{widthFull?:boolean}) {
                            client={thirdWebClient}
                            showThirdwebBranding={false}
                            showAllWallets={false}
-                           chain={elysiumChain}
+                           chain={sepolia}
                        />
                    </div>    
                    </>
@@ -89,7 +89,7 @@ function ConnectWallet({widthFull}:{widthFull?:boolean}) {
                                     showAllWallets={false}
 
                                     wallets={wallets}
-                                    chain={elysiumChain}
+                                    chain={sepolia}
                                     onConnect={onClose}
                                     
                                 />

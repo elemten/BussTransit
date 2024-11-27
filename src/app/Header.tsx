@@ -6,17 +6,9 @@ import Link from "next/link";
 import { ConnectButton } from "thirdweb/react";
 import { createWallet } from "thirdweb/wallets";
 import { PixelifySans } from "./layout";
+import { sepolia } from "thirdweb/chains";
+
 import { defineChain } from "thirdweb";
-export const elysiumChain = defineChain({
-  id: 1338,
-  name: "Elysium Testnet",
-  rpc: "https://rpc.atlantischain.network/",
-  nativeCurrency: {
-    name: "LAVA",
-    symbol: "LAVA",
-    decimals: 18,
-  },
-});
 export default function Header() {
     return (
     <div className="flex flex-col w-full gap-2 justify-center mt-4">
@@ -27,7 +19,7 @@ export default function Header() {
          
           <ConnectButton
             client={thirdWebClient}
-            chain={elysiumChain}
+            chain={sepolia}
             autoConnect
             wallets={wallets}
             theme={'dark'}
