@@ -326,7 +326,7 @@ const stopSimulation = () => {
               <Button isDisabled={Number(ticketPrice)<=0} onClick={async ()=>await setTicketsPriceFunc()} isLoading={ticketsPriceTransactionPending}>Set Ticket Price</Button>
               </div>
               <h1>Ticket Price : {ticketCurrentPrice&& toEther(ticketCurrentPrice)}</h1>
-              <div className="flex flex-col">
+{/*               <div className="flex flex-col">
                 <h1>Set Arrival Times</h1>
                 <div className="flex flex-row justify-center gap-20">
                   <div>
@@ -340,7 +340,7 @@ const stopSimulation = () => {
 
                 </div>
                 <Button onClick={async ()=>await setTimes()} isLoading={arivalTimeTransactionPending}>Set Time</Button>
-              </div>
+              </div> */}
               <h1>Genrate Tickets</h1>
               <Button isLoading={genrateTransactionPending} isDisabled={activeAccount?.address==undefined} onClick={async ()=>{await genrateTickets()}}>Genrate Tickets</Button>
               <Button onClick={async ()=>{await getTicketsIds()}}>Get Tickets</Button>
@@ -354,7 +354,7 @@ const stopSimulation = () => {
               
               :''  
             }
-{/*             <div className="flex flex-row">
+            <div className="flex flex-row">
               <h1>Set Arival Times</h1>
             <Input
               label='Add Passanger'
@@ -366,7 +366,7 @@ const stopSimulation = () => {
               }}
               />
               <Button isDisabled={!ticketId} onClick={async ()=>await addPassengerToBus()} isLoading={addPassangerTransactionPendig}>Add Passanger</Button>
-            </div> */}
+            </div>
             <div>
               <h1>Passanger count :{String(passangerCount)} </h1>
             </div>
