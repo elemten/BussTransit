@@ -295,7 +295,7 @@ const startSimulation = async () => {
       setSimulationResult('Simulation Error');
       clearInterval(intervalId); // Stop the simulation on error
     }
-  }, 2000);
+  }, 3000);
 };
 
 const stopSimulation = () => {
